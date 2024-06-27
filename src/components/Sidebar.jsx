@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CharacterTypes from "./CharacterTypes";
 import StorySettings from "./StorySettings";
 import StoryElements from "./StoryElements";
@@ -10,7 +11,6 @@ import {
 	FaLinkedin,
 	FaSignOutAlt,
 } from "react-icons/fa";
-
 
 function Sidebar({
 	onCharacterSelect,
@@ -60,7 +60,7 @@ function Sidebar({
 	};
 
 	return (
-		<div className="sidebar bg-bluegray-800 text-offwhite p-4">
+		<div className="sidebar bg-bluegray-800 text-offwhite p-4 sticky top-0 h-screen">
 			<h2 className="text-2xl font-bold mb-4">Story Configuration</h2>
 			<CharacterTypes onCharacterSelect={onCharacterSelect} />
 			<StorySettings onSettingsSelect={onSettingsSelect} />
@@ -79,17 +79,17 @@ function Sidebar({
 				<button
 					onClick={() => handleShare("facebook")}
 					className="w-full flex items-center justify-center p-2 bg-primary rounded text-offwhite hover:bg-primary-dark transition-colors">
-					<FaFacebook className="mr-2" /> Share on Facebook
+					<FaFacebook className="mr-2" /> Share 
 				</button>
 				<button
 					onClick={() => handleShare("twitter")}
 					className="w-full flex items-center justify-center p-2 bg-primary rounded text-offwhite hover:bg-primary-dark transition-colors">
-					<FaTwitter className="mr-2" /> Share on Twitter
+					<FaTwitter className="mr-2" /> Share
 				</button>
 				<button
 					onClick={() => handleShare("linkedin")}
 					className="w-full flex items-center justify-center p-2 bg-primary rounded text-offwhite hover:bg-primary-dark transition-colors">
-					<FaLinkedin className="mr-2" /> Share on LinkedIn
+					<FaLinkedin className="mr-2" /> Share
 				</button>
 				<button
 					onClick={onLogout}
@@ -100,5 +100,12 @@ function Sidebar({
 		</div>
 	);
 }
+
+Sidebar.propTypes = {
+	onCharacterSelect: PropTypes.func.isRequired,
+	onSettingsSelect: PropTypes.func.isRequired,
+	onElementsSelect: PropTypes.func.isRequired,
+	onLogout: PropTypes.func.isRequired,
+};
 
 export default Sidebar;

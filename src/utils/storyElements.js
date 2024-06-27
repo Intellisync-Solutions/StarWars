@@ -1,17 +1,4 @@
 const storyElements = {
-	locations: [
-		"Forest",
-		"Desert",
-		"Mountain",
-		"City",
-		"Space Station",
-		"Underwater",
-		"Castle",
-		"Village",
-		"Island",
-		"Cave",
-		// Add more locations here
-	],
 	plotTwists: [
 		"Unexpected Ally",
 		"Betrayal",
@@ -23,7 +10,40 @@ const storyElements = {
 		"Lost Memories",
 		"Unexpected Rescue",
 		"Natural Disaster",
+		"Double Agent",
+		"Sudden Disappearance",
+		"Evil Twin",
+		"Prophecy Fulfilled",
+		"Artifact Activation",
+		"Secret Passage",
+		"Unlikely Hero",
+		"Haunting Vision",
+		"Alien Encounter",
+		"Reversed Fate",
 		// Add more plot twists here
+	],
+	moralLessons: [
+		"Honesty",
+		"Courage",
+		"Perseverance",
+		"Kindness",
+		"Loyalty",
+		"Forgiveness",
+		"Humility",
+		"Selflessness",
+		"Responsibility",
+		"Compassion",
+		"Integrity",
+		"Justice",
+		"Empathy",
+		"Respect",
+		"Patience",
+		"Generosity",
+		"Gratitude",
+		"Teamwork",
+		"Determination",
+		"Trustworthiness",
+		// Add more moral lessons here
 	],
 };
 

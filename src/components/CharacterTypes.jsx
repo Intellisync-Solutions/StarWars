@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import characterTypes from "../utils/characterTypes";
 
 function CharacterTypes({ onCharacterSelect }) {
 	return (
 		<div className="p-4">
-			<label className="block text-gray-800 dark:text-offwhite mb-2">
+			<label className="block text-offwhite dark:text-offwhite mb-2">
 				Main Character:
 			</label>
 			<select
@@ -19,5 +20,9 @@ function CharacterTypes({ onCharacterSelect }) {
 		</div>
 	);
 }
+
+CharacterTypes.propTypes = {
+	onCharacterSelect: PropTypes.func.isRequired,
+};
 
 export default CharacterTypes;

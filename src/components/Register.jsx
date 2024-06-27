@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 function Register() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -53,7 +52,7 @@ function Register() {
 							className="mt-1 p-2 rounded border bg-bluegray-200 dark:bg-bluegray-700 text-gray-900 dark:text-offwhite"
 						/>
 					</label>
-					{error && <p className="error text-red-500">{error}</p>}
+					{error && <p className="text-red-500">{error}</p>}
 					<button
 						type="submit"
 						className="mt-4 p-2 bg-primary text-offwhite rounded hover:bg-primary-dark transition-colors">

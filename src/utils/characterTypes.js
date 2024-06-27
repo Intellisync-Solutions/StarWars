@@ -9,6 +9,16 @@ const characterTypes = [
 	"Fairy",
 	"Vampire",
 	"Werewolf",
+	"Goblin",
+	"Troll",
+	"Mermaid",
+	"Giant",
+	"Centaur",
+	"Ghost",
+	"Witch",
+	"Demon",
+	"Angel",
+	"Phoenix",
 ];
 
 export default characterTypes;

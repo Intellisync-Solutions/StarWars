@@ -44,6 +44,11 @@ function App() {
 		setIsLoggedIn(true);
 	};
 
+	const handleLogout = () => {
+		setIsLoggedIn(false);
+		setShowSplashScreen(true);
+	};
+
 	if (showSplashScreen) {
 		return <SplashScreen onLogin={handleLogin} onRegister={handleRegister} />;
 	}
@@ -70,8 +75,9 @@ function App() {
 						onElementsSelect={(selected) =>
 							setElements((prev) => ({ ...prev, ...selected }))
 						}
+						onLogout={handleLogout} // Handle logout
 					/>
-					<div className="flex-grow">
+					<div className="flex-grow p-4">
 						<TextDisplay
 							userInput={userInput}
 							aiResponse={aiResponse}

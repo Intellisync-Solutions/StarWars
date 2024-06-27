@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 
 function SplashScreen({ onLogin, onRegister }) {
 	return (
@@ -22,5 +22,10 @@ function SplashScreen({ onLogin, onRegister }) {
 		</div>
 	);
 }
+
+SplashScreen.propTypes = {
+	onLogin: PropTypes.func.isRequired,
+	onRegister: PropTypes.func.isRequired,
+};
 
 export default SplashScreen;

@@ -15,17 +15,17 @@ export const handleInputSubmit = async (
 
 	const prompt = `You are an imaginative storyteller. You use vivid descriptions to detail each character, the world environment, scenes, and activities. You will continue from where the user left off and continue to weave intricate details with out-of-this-world storytelling.
 
-	You continue the story from where the USER'S last sentence OR WORD ends. You then expand on the users creative writing by completing the next paragraph from where the user stopped writing.
+	You continue the story from where the USER'S last sentence OR WORD ends. You then expand on the user's creative writing by completing the next sentence or paragraph from where the user stopped writing.
 
 RULES:
-1. Always complete EVERY sentence or paragraph.
+1. Always complete EVERY sentence and paragraph.
 2. Continue the story from where the user stops.
-3. Ensure the continuation is coherent and seamlessly follows the user's last input.
-4. <IMPORTANT> Do not end the response in the middle of a sentence.
+3. Ensure the continuation is coherent and seamlessly follows the user's last input incorporating the {Story Configuration}.
+4. DO NOT REPEAT THE USER'S INPUT.
 
-Guidelines: //You will use the story configuration settings to help narrate the creative writing along with the user.
+***Guidelines: //You will use the story configuration settings to help narrate the creative writing along with the user.***
 
-Story Configuration:
+{Story Configuration}:
 Main Character: ${character.mainCharacter}
 Sidekick: ${character.sidekick}
 Villain: ${character.villain}
@@ -50,10 +50,10 @@ The last input from the user was: "${input}"
 	const reader = stream.getReader();
 	const decoder = new TextDecoder();
 
-	let isSentenceComplete = false;
 	let newAiResponse = "";
+	let sentenceBuffer = "";
 
-	while (!isSentenceComplete) {
+	while (true) {
 		const { done, value } = await reader.read();
 		if (done) break;
 		const decodedValue = decoder.decode(value);
@@ -67,15 +67,16 @@ The last input from the user was: "${input}"
 						const json = JSON.parse(jsonString);
 						if (json.choices && json.choices.length > 0) {
 							const content = json.choices[0].delta?.content || "";
-							newAiResponse += content;
+							sentenceBuffer += content;
 
-							// Check if the content ends with a sentence-ending punctuation
+							// Check if the sentenceBuffer ends with a sentence-ending punctuation
 							if (
-								newAiResponse.endsWith(".") ||
-								newAiResponse.endsWith("!") ||
-								newAiResponse.endsWith("?")
+								sentenceBuffer.endsWith(".") ||
+								sentenceBuffer.endsWith("!") ||
+								sentenceBuffer.endsWith("?")
 							) {
-								isSentenceComplete = true;
+								newAiResponse += sentenceBuffer;
+								sentenceBuffer = "";
 							}
 						}
 					} catch (error) {
@@ -84,6 +85,15 @@ The last input from the user was: "${input}"
 				}
 			}
 		}
+	}
+
+	// Append any remaining buffer to the response if it forms a complete sentence
+	if (
+		sentenceBuffer.endsWith(".") ||
+		sentenceBuffer.endsWith("!") ||
+		sentenceBuffer.endsWith("?")
+	) {
+		newAiResponse += sentenceBuffer;
 	}
 
 	setAiResponse((prev) => prev + newAiResponse);

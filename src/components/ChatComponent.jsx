@@ -25,6 +25,8 @@ function ChatComponent() {
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
 				className="w-full p-2 rounded bg-bluegray-200 dark:bg-bluegray-700 text-gray-900 dark:text-offwhite"
+				placeholder="Type your message here..."
+				rows="4"
 			/>
 			<button
 				onClick={handleSubmit}
