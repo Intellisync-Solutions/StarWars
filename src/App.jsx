@@ -1,22 +1,40 @@
-import React, { useState } from "react";
-import Sidebar from "./components/Sidebar";
-import TextDisplay from "./components/TextDisplay";
-import SplashScreen from "./components/SplashScreen";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import { handleInputSubmit } from "./handleInput";
+import React, { useState, useEffect } from "react";
+import Sidebar from "./components/web-components/Sidebar";
+import TextDisplay from "./components/web-components/TextDisplay";
+import SplashScreen from "./components/web-components/SplashScreen";
+import Login from "./components/web-components/Login";
+import Register from "./components/web-components/Register";
+import { handleInputSubmit } from "./logic/handleInput";
 
 function App() {
+	const [theme, setTheme] = useState("dark");
+	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+	useEffect(() => {
+		document.documentElement.classList.add(theme);
+		document.documentElement.classList.remove(
+			theme === "dark" ? "light" : "dark"
+		);
+	}, [theme]);
+
+	const toggleTheme = () => {
+		setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+	};
+
+	const toggleSidebar = () => {
+		setIsSidebarOpen((prev) => !prev);
+	};
+
 	const [userInput, setUserInput] = useState("");
 	const [aiResponse, setAiResponse] = useState("");
 	const [character, setCharacter] = useState({
 		mainCharacter: "Human",
 		sidekick: "Friend",
-		villain: "Evil Wizard",
+		villain: "The Emperor",
 	});
 	const [settings, setSettings] = useState({
-		location: "Forest",
-		timePeriod: "Present Day",
+		location: "Endor",
+		timePeriod: "Galactic Civil War",
 	});
 	const [elements, setElements] = useState({
 		plotTwist: "Unexpected Ally",
@@ -49,6 +67,18 @@ function App() {
 		setShowSplashScreen(true);
 	};
 
+	const handleCharacterSelect = (selected) => {
+		setCharacter((prev) => ({ ...prev, ...selected }));
+	};
+
+	const handleSettingsSelect = (selected) => {
+		setSettings((prev) => ({ ...prev, ...selected }));
+	};
+
+	const handleElementsSelect = (selected) => {
+		setElements((prev) => ({ ...prev, ...selected }));
+	};
+
 	if (showSplashScreen) {
 		return <SplashScreen onLogin={handleLogin} onRegister={handleRegister} />;
 	}
@@ -62,20 +92,23 @@ function App() {
 	}
 
 	return (
-		<div className="App min-h-screen bg-bluegray-50 dark:bg-bluegray-900 text-gray-900 dark:text-offwhite flex">
+		<div
+			className={`App min-h-screen ${
+				theme === "dark"
+					? "bg-bluegray-50 text-offwhite"
+					: "bg-bluegray-50 text-bluegray-50"
+			} flex`}>
 			{isLoggedIn && (
 				<>
 					<Sidebar
-						onCharacterSelect={(selected) =>
-							setCharacter((prev) => ({ ...prev, mainCharacter: selected }))
-						}
-						onSettingsSelect={(selected) =>
-							setSettings((prev) => ({ ...prev, ...selected }))
-						}
-						onElementsSelect={(selected) =>
-							setElements((prev) => ({ ...prev, ...selected }))
-						}
-						onLogout={handleLogout} // Handle logout
+						onCharacterSelect={handleCharacterSelect}
+						onSettingsSelect={handleSettingsSelect}
+						onElementsSelect={handleElementsSelect}
+						onLogout={handleLogout}
+						theme={theme}
+						toggleTheme={toggleTheme}
+						isSidebarOpen={isSidebarOpen}
+						toggleSidebar={toggleSidebar}
 					/>
 					<div className="flex-grow p-4">
 						<TextDisplay

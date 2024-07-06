@@ -10,7 +10,7 @@ export const fetchStreamingResponse = async (input) => {
 		body: JSON.stringify({
 			model: "gpt-4o",
 			messages: [{ role: "user", content: input }],
-			max_tokens: 600,
+			max_tokens: 800,
 			stream: true,
 		}),
 	});
