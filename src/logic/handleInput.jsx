@@ -8,7 +8,8 @@ export const handleInputSubmit = async (
 	aiResponse,
 	character,
 	settings,
-	elements
+	elements,
+	userName // Add userName parameter
 ) => {
 	const updatedUserInput = `${userInput}${input} `;
 	setUserInput(updatedUserInput);
@@ -33,6 +34,7 @@ Time Period: ${settings.timePeriod}
 Plot Twist: ${elements.plotTwist}
 Moral Lesson: ${elements.moralLesson}
 Story Setting Recommendations: ${elements.storySettingRecommendations}
+User Name: ${userName} // Include userName in the prompt
 Story so far:
 ${userInput}${aiResponse}
 
@@ -44,11 +46,12 @@ The last input from the user was:
 You continue the story from where the USER'S last sentence OR WORD ends. You then expand on the user's creative writing by completing the next sentence or paragraph from where the user stopped writing.
 
 RULES:
-1. Include in your very first response "You have chosen your Destiny"
+1. Include in your very first response "You have chosen your Destiny (user name)"
 2. Always complete EVERY sentence and paragraph.
 3. Continue the story from where the user stops.
 4. Ensure the continuation is coherent and seamlessly follows the user's last input incorporating the {Story Configuration}.
 5. DO NOT REPEAT THE USER'S INPUT.
+6. EDIT THE USER INPUT FOR SPELLING, GRAMMAR AND PUNCTUATION.
 
 ***Guidelines: //You will use the story configuration settings to help narrate the creative writing along with the user.***
 

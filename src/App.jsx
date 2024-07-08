@@ -9,6 +9,7 @@ import { handleInputSubmit } from "./logic/handleInput";
 function App() {
 	const [theme, setTheme] = useState("dark");
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+	const [userName, setUserName] = useState("");
 
 	useEffect(() => {
 		document.documentElement.classList.add(theme);
@@ -109,6 +110,7 @@ function App() {
 						toggleTheme={toggleTheme}
 						isSidebarOpen={isSidebarOpen}
 						toggleSidebar={toggleSidebar}
+						setUserName={setUserName}
 					/>
 					<div className="flex-grow p-4">
 						<TextDisplay
@@ -123,7 +125,8 @@ function App() {
 									aiResponse,
 									character,
 									settings,
-									elements
+									elements,
+									userName // Pass the userName to handleInputSubmit
 								)
 							}
 						/>

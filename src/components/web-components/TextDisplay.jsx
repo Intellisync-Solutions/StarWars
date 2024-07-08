@@ -2,13 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Slider from "./Slider";
 import { fetchTTSAudio } from "../../utils/TTS";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faPlay,
+	faPause,
+	faStop,
+	faSync,
+} from "@fortawesome/free-solid-svg-icons";
 
 const TextDisplay = ({ userInput, aiResponse, onSubmit }) => {
 	const [displayText, setDisplayText] = useState(userInput + aiResponse);
 	const inputRef = useRef(null);
 	const typingTimeoutRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
-	const [sliderValue, setSliderValue] = useState(100); // Default to 100%
+	const [volume, setVolume] = useState(100); // Default to 100%
 	const audioRef = useRef(null);
 
 	useEffect(() => {
@@ -27,7 +34,7 @@ const TextDisplay = ({ userInput, aiResponse, onSubmit }) => {
 				onSubmit(text);
 				inputRef.current.innerText = ""; // Clear the input div
 			}
-		}, 1000); // Adjust the delay as needed
+		}, 3000); // Adjust the delay as needed
 	};
 
 	const startPlayback = async () => {
@@ -40,7 +47,7 @@ const TextDisplay = ({ userInput, aiResponse, onSubmit }) => {
 			const audioSrc = await fetchTTSAudio(displayText);
 			const audioElement = new Audio(audioSrc);
 			audioRef.current = audioElement;
-
+			audioElement.volume = volume / 100; // Set initial volume
 			audioElement.play();
 			setIsPlaying(true);
 
@@ -71,12 +78,20 @@ const TextDisplay = ({ userInput, aiResponse, onSubmit }) => {
 		}
 	};
 
-	const handleSliderChange = (e) => {
+	const handleVolumeChange = (e) => {
 		const value = Number(e.target.value); // Ensure the value is a number
-		setSliderValue(value);
+		setVolume(value);
 		if (audioRef.current) {
-			audioRef.current.playbackRate = value / 100; // Adjust playback rate
+			audioRef.current.volume = value / 100; // Adjust volume
 		}
+	};
+
+	const incrementVolume = () => {
+		setVolume((prevVolume) => Math.min(prevVolume + 10, 100));
+	};
+
+	const decrementVolume = () => {
+		setVolume((prevVolume) => Math.max(prevVolume - 10, 0));
 	};
 
 	return (
@@ -90,23 +105,30 @@ const TextDisplay = ({ userInput, aiResponse, onSubmit }) => {
 					onInput={handleInput}
 					placeholder="Your Destiny Starts Here..."></div>
 			</div>
-			<div className="mt-4 flex items-center">
-				<button onClick={startPlayback} className="star-wars-button">
-					Start
-				</button>
-				<button onClick={pausePlayback} className="star-wars-button ml-2">
-					{isPlaying ? "Pause" : "Resume"}
-				</button>
-				<button onClick={stopPlayback} className="star-wars-button ml-2">
-					Stop
-				</button>
-				<Slider
-					value={sliderValue}
-					onChange={handleSliderChange}
-					min={50}
-					max={200}
-					step={1}
-				/>
+			<div className="mt-4 flex flex-col items-center">
+				<div className="flex items-center mb-4">
+					<button onClick={startPlayback} className="icon-button">
+						<FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+					</button>
+					<button onClick={stopPlayback} className="icon-button ml-2">
+						<FontAwesomeIcon icon={faStop} />
+					</button>
+					<button onClick={stopPlayback} className="icon-button ml-2">
+						<FontAwesomeIcon icon={faSync} />
+					</button>
+				</div>
+				<div className="flex items-center mb-2">
+					<span>{volume}%</span>
+				</div>
+				<div className="flex items-center">
+					<button onClick={decrementVolume} className="icon-button">
+						-
+					</button>
+					<Slider value={volume} onChange={handleVolumeChange} />
+					<button onClick={incrementVolume} className="icon-button ml-2">
+						+
+					</button>
+				</div>
 			</div>
 		</div>
 	);
