@@ -18,24 +18,26 @@ export const handleInputSubmit = async (
 
 Guidelines:
 
-Characters: Utilize the provided character configurations, including their traits, roles, and backgrounds, to enrich the story. Each character should be portrayed with depth, making their actions and dialogue believable within the Star Wars context.
-Setting: Use the specified locations and time periods from the Star Wars universe to create a vivid backdrop. Incorporate elements like planets, starships, and iconic landmarks to ground the story in its unique setting.
-Plot Development: Seamlessly continue the plot from the user's last input. Introduce plot twists and moral lessons as specified, ensuring they fit naturally into the unfolding narrative.
-Dialogue and Actions: Write authentic dialogue and actions for characters that reflect their personalities and roles. Ensure interactions are dynamic and contribute to the story’s progression.
-Narrative Flow: Maintain coherence and continuity with the previous input. Each new segment should flow naturally from the last, avoiding repetition of the user’s input.
-Descriptive Detail: Enhance scenes with sensory details, describing sights, sounds, smells, and feelings to immerse the reader in the Star Wars universe.
-Story Configuration:
+1. **Characters:** Utilize the provided character configurations, including their traits, roles, and backgrounds, to enrich the story. Each character should be portrayed with depth, making their actions and dialogue believable within the Star Wars context.
+2. **Setting:** Use the specified locations and time periods from the Star Wars universe to create a vivid backdrop. Incorporate elements like planets, starships, and iconic landmarks to ground the story in its unique setting.
+3. **Plot Development:** Seamlessly continue the plot from the user's last input. Introduce plot twists and moral lessons as specified, ensuring they fit naturally into the unfolding narrative.
+4. **Dialogue and Actions:** Write authentic dialogue and actions for characters that reflect their personalities and roles. Ensure interactions are dynamic and contribute to the story’s progression.
+5. **Narrative Flow:** Maintain coherence and continuity with the previous input. Each new segment should flow naturally from the last, avoiding repetition of the user’s input.
+6. **Descriptive Detail:** Enhance scenes with sensory details, describing sights, sounds, smells, and feelings to immerse the reader in the Star Wars universe.
 
-Main Character: ${character.mainCharacter} (${character.mainCharacterExample})
-Sidekick: ${character.sidekick}
-Villain: ${character.villain}
-Location: ${settings.location}
-Time Period: ${settings.timePeriod}
-Plot Twist: ${elements.plotTwist}
-Moral Lesson: ${elements.moralLesson}
-Story Setting Recommendations: ${elements.storySettingRecommendations}
-User Name: ${userName} // Include userName in the prompt
-Story so far:
+**Story Configuration:**
+
+- **Main Character:** ${character.mainCharacter} (${character.mainCharacterExample})
+- **Sidekick:** ${character.sidekick}
+- **Villain:** ${character.villain}
+- **Location:** ${settings.location}
+- **Time Period:** ${settings.timePeriod}
+- **Plot Twist:** ${elements.plotTwist}
+- **Moral Lesson:** ${elements.moralLesson}
+- **Story Setting Recommendations:** ${elements.storySettingRecommendations}
+- **User Name:** ${userName} // Include userName in the prompt
+
+**Story so far:**
 ${userInput}${aiResponse}
 
 The last input from the user was:
@@ -45,13 +47,13 @@ The last input from the user was:
 
 You continue the story from where the USER'S last sentence OR WORD ends. You then expand on the user's creative writing by completing the next sentence or paragraph from where the user stopped writing.
 
-RULES:
-1. Include in your very first response "You have chosen your Destiny (user name)"
+**RULES:**
+1. Include in your very first response "You have chosen your Destiny (${userName})"
 2. Always complete EVERY sentence and paragraph.
 3. Continue the story from where the user stops.
 4. Ensure the continuation is coherent and seamlessly follows the user's last input incorporating the {Story Configuration}.
 5. DO NOT REPEAT THE USER'S INPUT.
-6. EDIT THE USER INPUT FOR SPELLING, GRAMMAR AND PUNCTUATION.
+6. EDIT THE USER INPUT FOR SPELLING, GRAMMAR, AND PUNCTUATION.
 
 ***Guidelines: //You will use the story configuration settings to help narrate the creative writing along with the user.***
 
@@ -62,7 +64,6 @@ Please continue the story based on the text provided below.
 Story so far: ${userInput}${aiResponse}
 
 The last input from the user was: "${input}"
-
 `;
 
 	const stream = await fetchStreamingResponse(prompt);

@@ -8,7 +8,7 @@ export const fetchStreamingResponse = async (input) => {
 			Authorization: `Bearer ${API_KEY}`,
 		},
 		body: JSON.stringify({
-			model: "gpt-4o",
+			model: "gpt-4o-mini",
 			messages: [{ role: "user", content: input }],
 			max_tokens: 800,
 			stream: true,

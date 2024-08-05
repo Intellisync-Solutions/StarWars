@@ -29,18 +29,18 @@ function App() {
 	const [userInput, setUserInput] = useState("");
 	const [aiResponse, setAiResponse] = useState("");
 	const [character, setCharacter] = useState({
-		mainCharacter: "Human",
-		sidekick: "Friend",
-		villain: "The Emperor",
+		mainCharacter: "",
+		sidekick: "",
+		villain: "",
 	});
 	const [settings, setSettings] = useState({
-		location: "Endor",
-		timePeriod: "Galactic Civil War",
+		location: "",
+		timePeriod: "",
 	});
 	const [elements, setElements] = useState({
-		plotTwist: "Unexpected Ally",
-		moralLesson: "Honesty",
-		storySettingRecommendations: "Epic Battle",
+		plotTwist: "",
+		moralLesson: "",
+		storySettingRecommendations: "",
 	});
 	const [showSplashScreen, setShowSplashScreen] = useState(true);
 	const [showLogin, setShowLogin] = useState(false);
